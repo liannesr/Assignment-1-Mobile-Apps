@@ -1,13 +1,17 @@
 package com.techexhange.mobileapps.assignment1;
 
+import android.content.res.Resources;
+
 public class NumSlider {
 
-    private Tile[][] gridTiles = new Tile[3][3];
-    private int[][] winningNUmbers = {{1,2,3},{4,5,6},{7,8,0}};
+    public static Tile[][] gridTiles = new Tile[3][3];
+    public static int[][] winningNUmbers = {{1,2,3},{4,5,6},{7,8,0}};
+    //Resources resource = R.array.game;
 
     public NumSlider(){
         //Configurating the grid with the tiles;
         this.config();
+
 
     }
 
@@ -17,7 +21,8 @@ public class NumSlider {
         boolean toLeft = false;
         boolean up = false;
         boolean down = false;
-        if(!gridTiles[columnTile][rowTile].getTileStatus() && !gridTiles[columnTile][rowTile].getActive()) {
+       // && !gridTiles[columnTile][rowTile].getActive()
+        if(!gridTiles[columnTile][rowTile].getTileStatus() ) {
             toRight = this.checkAdjacent(rowTile, columnTile, rowTile,columnTile+1);
             toLeft = this.checkAdjacent(rowTile, columnTile, rowTile, columnTile-1);
             up = this.checkAdjacent(rowTile, columnTile, rowTile-1, columnTile);

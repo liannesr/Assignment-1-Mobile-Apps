@@ -1,5 +1,7 @@
 package com.techexhange.mobileapps.assignment1;
 
+
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,89 +20,99 @@ public class MainActivity extends AppCompatActivity {
     private ImageView one,two,three,four,five,six,seven,eight,zero;
     private Map<ImageView, Integer> coordinatesMap;
     private Map<Integer, Tuple> inverseCoordinates;
-    private static final String TAG = MainActivity.class.getSimpleName();
     private Bitmap spritesheet;
-
-
+    private ImageView[] imagesGroup = new ImageView[9];
+    private Bitmap[] sprites = new Bitmap[9];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         spritesheet = BitmapFactory.decodeResource(this.getResources(),R.drawable.numbers_sprite_100);
 
-        //Bitmap sprite = Bitmap.createBitmap(spritesheet,300,0,300,300);
-        Bitmap sprite = Bitmap.createBitmap(spritesheet,300,0,300,300);
-        Bitmap sprite2 = Bitmap.createBitmap(spritesheet,600,0,300,300);
-        Bitmap sprite3 = Bitmap.createBitmap(spritesheet,900,0,300,300);
-        Bitmap sprite4 = Bitmap.createBitmap(spritesheet,1200,0,300,300);
-        Bitmap sprite5 = Bitmap.createBitmap(spritesheet,1500,0,300,300);
-        Bitmap sprite6 = Bitmap.createBitmap(spritesheet,1800,0,300,300);
-        Bitmap sprite7 = Bitmap.createBitmap(spritesheet,2100,0,300,300);
-        Bitmap sprite8 = Bitmap.createBitmap(spritesheet,2400,0,300,300);
+        Bitmap sprite0 = Bitmap.createBitmap(spritesheet,0,0,2,20); sprites[0] = sprite0;
+        Bitmap sprite = Bitmap.createBitmap(spritesheet,300,0,300,300); sprites[1]=sprite;
+        Bitmap sprite2 = Bitmap.createBitmap(spritesheet,600,0,300,300);sprites[2]=sprite2;
+        Bitmap sprite3 = Bitmap.createBitmap(spritesheet,900,0,300,300);sprites[3]=sprite3;
+        Bitmap sprite4 = Bitmap.createBitmap(spritesheet,1200,0,300,300);sprites[4]=sprite4;
+        Bitmap sprite5 = Bitmap.createBitmap(spritesheet,1500,0,300,300);sprites[5]=sprite5;
+        Bitmap sprite6 = Bitmap.createBitmap(spritesheet,1800,0,300,300);sprites[6]=sprite6;
+        Bitmap sprite7 = Bitmap.createBitmap(spritesheet,2100,0,300,300);sprites[7]=sprite7;
+        Bitmap sprite8 = Bitmap.createBitmap(spritesheet,2400,0,300,300);sprites[8]=sprite8;
 
         game = new NumSlider();
         coordinatesMap = new HashMap<ImageView, Integer>();
         inverseCoordinates = new HashMap<Integer, Tuple>();
+
         one =findViewById(R.id.one_image);
         one.setOnClickListener(this::onImagePressed);
         one.setImageBitmap(sprite);
+        imagesGroup[1]=one;
+
 
 
         two =findViewById(R.id.two_image);
         two.setOnClickListener(this::onImagePressed);
         two.setImageBitmap(sprite2);
+        imagesGroup[2]=two;
 
         three =findViewById(R.id.three_image);
         three.setOnClickListener(this::onImagePressed);
         three.setImageBitmap(sprite3);
+        imagesGroup[3]=three;
 
         four = findViewById(R.id.four_image);
         four.setOnClickListener(this::onImagePressed);
         four.setImageBitmap(sprite4);
+        imagesGroup[4]=four;
 
         five = findViewById(R.id.five_image);
         five.setOnClickListener(this::onImagePressed);
         five.setImageBitmap(sprite5);
+        imagesGroup[5]=five;
 
         six = findViewById(R.id.six_image);
         six.setOnClickListener(this::onImagePressed);
         six.setImageBitmap(sprite6);
+        imagesGroup[6]=six;
 
         seven = findViewById(R.id.seven_image);
         seven.setOnClickListener(this::onImagePressed);
         seven.setImageBitmap(sprite7);
+        imagesGroup[7]=seven;
 
         eight = findViewById(R.id.eight_image);
         eight.setOnClickListener(this::onImagePressed);
         eight.setImageBitmap(sprite8);
+        imagesGroup[8]=eight;
 
-        zero = findViewById(R.id.nine_image);
+        zero = findViewById(R.id.zero_image);
         zero.setOnClickListener(this::onImagePressed);
-        //eight.setImageBitmap(sprite8);
-        zero.setVisibility(View.INVISIBLE);
+        zero.setImageBitmap(sprite0);
+        //zero.setVisibility(View.INVISIBLE);
+        imagesGroup[0]=zero;
 
 
 
 
-        coordinatesMap.put(one,0); inverseCoordinates.put(0,new Tuple(one,0,sprite));
-        coordinatesMap.put(two,1); inverseCoordinates.put(1,new Tuple(two,1,sprite2));
-        coordinatesMap.put(three,2); inverseCoordinates.put(2,new Tuple(three,2,sprite3));
-        coordinatesMap.put(four,3); inverseCoordinates.put(3,new Tuple(four,3,sprite4));
-        coordinatesMap.put(five,4); inverseCoordinates.put(4,new Tuple(five,4,sprite5));
-        coordinatesMap.put(six,5); inverseCoordinates.put(5, new Tuple(six,5,sprite6));
-        coordinatesMap.put(seven,6); inverseCoordinates.put(6, new Tuple(seven,6,sprite7));
-        coordinatesMap.put(eight,7); inverseCoordinates.put(7,new Tuple(eight,7,sprite8));
-        coordinatesMap.put(zero,8); inverseCoordinates.put(8,new Tuple(zero,8,sprite8));
-        //coordinatesMap.put(nine,9); inverseCoordinates.put(9, new Tuple(nine,9,null));
-
+        coordinatesMap.put(one,1); inverseCoordinates.put(1,new Tuple(one,1,sprite));
+        coordinatesMap.put(two,2); inverseCoordinates.put(2,new Tuple(two,2,sprite2));
+        coordinatesMap.put(three,3); inverseCoordinates.put(3,new Tuple(three,3,sprite3));
+        coordinatesMap.put(four,4); inverseCoordinates.put(4,new Tuple(four,4,sprite4));
+        coordinatesMap.put(five,5); inverseCoordinates.put(5,new Tuple(five,5,sprite5));
+        coordinatesMap.put(six,6); inverseCoordinates.put(6, new Tuple(six,6,sprite6));
+        coordinatesMap.put(seven,7); inverseCoordinates.put(7, new Tuple(seven,7,sprite7));
+        coordinatesMap.put(eight,8); inverseCoordinates.put(8,new Tuple(eight,8,sprite8));
+        coordinatesMap.put(zero,0); inverseCoordinates.put(0,new Tuple(zero,0,sprite0));
+        loadGames();
     }
 
     private void onImagePressed(View v){
 
-        int row = coordinatesMap.get(v)/3;
-        int column = coordinatesMap.get(v)%3;
+        int Testing = coordinatesMap.get(v);
+        int row = (coordinatesMap.get(v))/3;
+        int column = (coordinatesMap.get(v))%3;
+        System.out.println("Testing: "+ Testing+" Row: "+row+"Column"+column);
         boolean[] directions = game.swapTile(column,row);
         int newPosition = this.getCoordinate(coordinatesMap.get(v),directions); //Int position to move
         if (newPosition<9){
@@ -114,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
             toMove.setVisibility(View.INVISIBLE);
             NewImage.setVisibility(View.VISIBLE);
         }
-        Boolean wonStatus = game.checkIfWon();
-        if(wonStatus) this.won();
+        //Boolean wonStatus = game.checkIfWon();
+        //if(wonStatus) this.won();
     }
 
     private int getCoordinate(int number, boolean[] directions){
@@ -143,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         changeBitMapsColor();
         Toast.makeText(MainActivity.this, "CONGRATS YOU WON!", Toast.LENGTH_SHORT).show();
         for(int i=0;i<inverseCoordinates.size();i++){
-            inverseCoordinates.get(i).getImage().setOnContextClickListener(null);
+            //inverseCoordinates.get(i).getImage().setOnContextClickListener(null);
         }
 
     }
@@ -168,4 +179,62 @@ public class MainActivity extends AppCompatActivity {
         eight.setImageBitmap(green8);
 
     }
+
+
+    public void loadGames(){
+        Random randomNumber = new Random();
+        int gameChosen = randomNumber.nextInt(5);
+        Resources res = getResources();
+        int[] bases = new int[9];
+        switch (gameChosen){
+            case 0:
+                bases = res.getIntArray(R.array.game);
+                break;
+            case 1:
+                bases = res.getIntArray(R.array.game_2);
+                break;
+            case 2:
+                bases = res.getIntArray(R.array.game_3);
+                break;
+            case 3:
+                bases = res.getIntArray(R.array.game_4);
+                break;
+            case 4:
+                bases = res.getIntArray(R.array.game_5);
+                break;
+        }
+        int k=0;
+        for(int i=0;i<NumSlider.winningNUmbers.length;i++){
+            for(int j=0;j<NumSlider.winningNUmbers.length;j++){
+                if(bases[k]==0) {
+                    NumSlider.gridTiles[i][j].setTileStatus(true);
+                   // imagesGroup[k].setVisibility(View.INVISIBLE);
+
+                }
+                else {
+                    NumSlider.gridTiles[i][j].setTileStatus(false);
+                }
+                NumSlider.gridTiles[i][j].setTileValue(bases[k]);
+
+               // coordinatesMap.replace(imagesGroup[bases[k]],k);
+                //inverseCoordinates.get(k).setBitmap(sprites[k]);
+                //inverseCoordinates.get(k).setValue(k);
+               // System.out.println(bases[k] + "Coordinates: "+coordinatesMap.get(imagesGroup[k]));
+               // imagesGroup[k].setImageBitmap(sprites[bases[k]]);
+                //coordinatesMap.replace(imagesGroup[k],bases[k]);
+                //inverseCoordinates.get(bases[k]).setValue(bases[k]);
+                //inverseCoordinates.put(bases[k], new Tuple(imagesGroup[k], bases[k], sprites[bases[k]]));
+                //inverseCoordinates.get(bases[k]).setBitmap(sprites[bases[k]]);
+               // System.out.println(bases[k] + "Coordinates: "+coordinatesMap.get(imagesGroup[k]));
+                k=k+1;
+            }
+        }
+        for(int i=0;i<NumSlider.gridTiles.length;i++){
+            for(int j=0;j<NumSlider.gridTiles.length;j++){
+                System.out.println("Inside Tiles: row: "+ i + " Column: " + j+ " Value "+ NumSlider.gridTiles[i][j].getTileValue()+ " Valid : " +NumSlider.gridTiles[i][j].getTileStatus());
+            }
+        }
+
+    }
+
 }
