@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private Map<ImageView, Integer> coordinatesMap;
     private Map<Integer, Tuple> inverseCoordinates;
     private Bitmap spritesheet;
-    private ImageView[] imagesGroup = new ImageView[9];
+    //private ImageView[] imagesGroup = new ImageView[9];
+    private Tuple[] imagesViewGroup = new Tuple[9];
     private Bitmap[] sprites = new Bitmap[9];
 
     @Override
@@ -47,50 +48,59 @@ public class MainActivity extends AppCompatActivity {
         one =findViewById(R.id.one_image);
         one.setOnClickListener(this::onImagePressed);
         one.setImageBitmap(sprite);
-        imagesGroup[1]=one;
+        imagesViewGroup[1]= new Tuple(one,1,sprite);
+        //imagesGroup[1]=one;
 
 
 
         two =findViewById(R.id.two_image);
         two.setOnClickListener(this::onImagePressed);
         two.setImageBitmap(sprite2);
-        imagesGroup[2]=two;
+        imagesViewGroup[2]= new Tuple(two,2,sprite2);
+        //imagesGroup[2]=two;
 
         three =findViewById(R.id.three_image);
         three.setOnClickListener(this::onImagePressed);
         three.setImageBitmap(sprite3);
-        imagesGroup[3]=three;
+        imagesViewGroup[3]= new Tuple(one,3,sprite3);
+        //imagesGroup[3]=three;
 
         four = findViewById(R.id.four_image);
         four.setOnClickListener(this::onImagePressed);
         four.setImageBitmap(sprite4);
-        imagesGroup[4]=four;
+        imagesViewGroup[4]= new Tuple(four,4,sprite4);
+       // imagesGroup[4]=four;
 
         five = findViewById(R.id.five_image);
         five.setOnClickListener(this::onImagePressed);
         five.setImageBitmap(sprite5);
-        imagesGroup[5]=five;
+        imagesViewGroup[5]= new Tuple(five,5,sprite5);
+        //imagesGroup[5]=five;
 
         six = findViewById(R.id.six_image);
         six.setOnClickListener(this::onImagePressed);
         six.setImageBitmap(sprite6);
-        imagesGroup[6]=six;
+        imagesViewGroup[6]= new Tuple(six,6,sprite6);
+        //imagesGroup[6]=six;
 
         seven = findViewById(R.id.seven_image);
         seven.setOnClickListener(this::onImagePressed);
         seven.setImageBitmap(sprite7);
-        imagesGroup[7]=seven;
+        imagesViewGroup[7]= new Tuple(seven,7,sprite7);
+       // imagesGroup[7]=seven;
 
         eight = findViewById(R.id.eight_image);
         eight.setOnClickListener(this::onImagePressed);
         eight.setImageBitmap(sprite8);
-        imagesGroup[8]=eight;
+        imagesViewGroup[8]= new Tuple(eight,8,sprite8);
+     //   imagesGroup[8]=eight;
 
         zero = findViewById(R.id.zero_image);
         zero.setOnClickListener(this::onImagePressed);
         zero.setImageBitmap(sprite0);
         //zero.setVisibility(View.INVISIBLE);
-        imagesGroup[0]=zero;
+        imagesViewGroup[0]= new Tuple(zero,0,sprite0);
+        //imagesGroup[0]=zero;
 
 
 
@@ -184,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
     public void loadGames(){
         Random randomNumber = new Random();
         int gameChosen = randomNumber.nextInt(5);
+        gameChosen=0;//TESTINGGGGG
         Resources res = getResources();
         int[] bases = new int[9];
         switch (gameChosen){
@@ -216,24 +227,32 @@ public class MainActivity extends AppCompatActivity {
                 }
                 NumSlider.gridTiles[i][j].setTileValue(bases[k]);
 
-               // coordinatesMap.replace(imagesGroup[bases[k]],k);
-                //inverseCoordinates.get(k).setBitmap(sprites[k]);
-                //inverseCoordinates.get(k).setValue(k);
-               // System.out.println(bases[k] + "Coordinates: "+coordinatesMap.get(imagesGroup[k]));
-               // imagesGroup[k].setImageBitmap(sprites[bases[k]]);
-                //coordinatesMap.replace(imagesGroup[k],bases[k]);
-                //inverseCoordinates.get(bases[k]).setValue(bases[k]);
-                //inverseCoordinates.put(bases[k], new Tuple(imagesGroup[k], bases[k], sprites[bases[k]]));
-                //inverseCoordinates.get(bases[k]).setBitmap(sprites[bases[k]]);
-               // System.out.println(bases[k] + "Coordinates: "+coordinatesMap.get(imagesGroup[k]));
+                //int oldPosition = coordinatesMap.get(imagesViewGroup[bases[k]].getValue());
+                coordinatesMap.replace(imagesViewGroup[bases[k]].getImage(), k);
+                imagesViewGroup[bases[k]].setValue(k);
+                inverseCoordinates.replace(k,imagesViewGroup[bases[k]]);
+               // coordinatesMap.replace(imagesGroup[k],oldPosition);
+                //Tuple tempTuple = inverseCoordinates.get(k);
+
+
+               // inverseCoordinates.replace(k,inverseCoordinates.get(bases[k]));
+                //inverseCoordinates.replace(bases[k],tempTuple);
+
+
                 k=k+1;
             }
         }
-        for(int i=0;i<NumSlider.gridTiles.length;i++){
-            for(int j=0;j<NumSlider.gridTiles.length;j++){
-                System.out.println("Inside Tiles: row: "+ i + " Column: " + j+ " Value "+ NumSlider.gridTiles[i][j].getTileValue()+ " Valid : " +NumSlider.gridTiles[i][j].getTileStatus());
-            }
+
+        for (int i=0;i<coordinatesMap.size();i++){
+            Tuple tempTesting = inverseCoordinates.get(i);
+            int testint = coordinatesMap.get(inverseCoordinates.get(i).getImage());
+            //System.out.print(inverseCoordinates.get(i));
         }
+//        for(int i=0;i<NumSlider.gridTiles.length;i++){
+//            for(int j=0;j<NumSlider.gridTiles.length;j++){
+//                System.out.println("Inside Tiles: row: "+ i + " Column: " + j+ " Value "+ NumSlider.gridTiles[i][j].getTileValue()+ " Valid : " +NumSlider.gridTiles[i][j].getTileStatus());
+//            }
+//        }
 
     }
 
