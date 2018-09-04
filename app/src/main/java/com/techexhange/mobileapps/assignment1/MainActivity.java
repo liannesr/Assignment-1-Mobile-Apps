@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         three =findViewById(R.id.three_image);
         three.setOnClickListener(this::onImagePressed);
         three.setImageBitmap(sprite3);
-        imagesViewGroup[3]= new Tuple(one,3,sprite3);
+        imagesViewGroup[3]= new Tuple(three,3,sprite3);
         //imagesGroup[3]=three;
 
         four = findViewById(R.id.four_image);
