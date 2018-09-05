@@ -42,12 +42,13 @@ public class NumSlider {
     }
 
     /**
-     * 
-     * @param toRight
-     * @param toLeft
-     * @param up
-     * @param down
-     * @return
+     * These translates the directions from variables to a boolean array of
+     * lenght 4.
+     * @param toRight the boolean value of the tile status of the right (free or not).
+     * @param toLeft the boolean value of the tile status on the left (free or not).
+     * @param up the boolean value of the tile status on the upper position (free or not).
+     * @param down the boolean value of the tile status on the lower position (free or not).
+     * @return a boolean array of length 4.
      */
     public boolean[] saveDirections(boolean toRight, boolean toLeft, boolean up, boolean down){
         boolean[] results = new boolean[4];
@@ -58,11 +59,23 @@ public class NumSlider {
         return results;
     }
 
+    /**
+     * A method that updates the position activation to verify eventually if the tile can be moved or not.
+     * @param column representing the column of the grid of the game.
+     * @param row representing the row of the grid of the game.
+     */
     public void updatePositionActivation(int column, int row){
         if(this.gridTiles[row][column].getTileValue() == this.winningNUmbers[row][column]){
             this.gridTiles[row][column].setActive(false);
         }
     }
+
+    /**
+     * This methods checks the position active state.
+     * @param column representing the column coordinate of the tile to check.
+     * @param row representing the row coordinate of the tile to check
+     * @return returns the activation status of the tile.
+     */
     public boolean checkPosition(int column, int row){ //If return true means that is in the correct position
         if(!this.gridTiles[row][column].getActive()){
             return true;
@@ -70,6 +83,16 @@ public class NumSlider {
         return false;
     }
 
+    /**
+     * This methods checks if the position sent to it with the possible adjacent position is empty
+     * if it is then swap those two positions and update the values and activation.
+     * @param presentRow the row of the tile that is being pressed.
+     * @param presentColumn the column of the tile that is being pressed.
+     * @param nextRow the row to move of the next tile.
+     * @param nextCol the column to move to on the next Tile.
+     * @return boolean status to see if you can move or not.
+     * @throws IndexOutOfBoundsException if the 2D index of the grid.
+     */
     private boolean checkAdjacent( int presentRow, int presentColumn, int nextRow, int nextCol){
         try{
             if(this.gridTiles[nextRow][nextCol].getTileStatus()){
@@ -77,7 +100,6 @@ public class NumSlider {
                 this.gridTiles[nextRow][nextCol].setTileValue(this.gridTiles[presentRow][presentColumn].getTileValue());
                 this.gridTiles[presentRow][presentColumn].setTileStatus(true);
                 this.gridTiles[presentRow][presentColumn].setTileValue(0);
-
                 return true;
             }
         }
@@ -87,6 +109,9 @@ public class NumSlider {
         return false;
     }
 
+    /**
+     * Does the initial configuration of the tile positions.
+     */
     private void config(){
         this.gridTiles[0][0] = new Tile(1,false);
         this.gridTiles[0][1] = new Tile(2,false);
@@ -99,6 +124,11 @@ public class NumSlider {
         this.gridTiles[2][2] = new Tile(0, true);
     }
 
+    /**
+     * This, compares the game grid with the actual winning grid to check is the user has
+     * won the game.
+     * @return boolean value, true if user has won, false if not.
+     */
     public boolean checkIfWon(){
         for (int i=0;i<gridTiles.length;i++){
             for(int j=0;j<gridTiles.length;j++){
