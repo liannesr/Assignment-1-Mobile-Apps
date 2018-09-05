@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.util.Random;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
     private NumSlider game;
