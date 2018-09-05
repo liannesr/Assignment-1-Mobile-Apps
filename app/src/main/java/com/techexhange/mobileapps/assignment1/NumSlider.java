@@ -1,40 +1,54 @@
 package com.techexhange.mobileapps.assignment1;
-
 import android.content.res.Resources;
 
+/**
+ * Programmed: Lianne Sanchez Rodriguez
+ * This class sets the game grid and the logic of the number slider
+ * Instance variables are:
+ * 1. gridTiles -> 2D array
+ * 2. winningNumbers -> 2D array for the winning configurations.
+ */
 public class NumSlider {
 
     public static Tile[][] gridTiles = new Tile[3][3];
     public static int[][] winningNUmbers = {{1,2,3},{4,5,6},{7,8,0}};
-    //Resources resource = R.array.game;
 
+    /**
+     * Constructor for the class NumSlider.
+     */
     public NumSlider(){
-        //Configurating the grid with the tiles;
         this.config();
-
-
     }
 
-
+    /**
+     * Method that starts the swapping the Tiles in the game.
+     * It starts by checking the status of the adjacent tiles
+     * @param columnTile the column coordinate of the tile being pressed.
+     * @param rowTile the row coordinate of the tile being pressed.
+     * @return a boolean array of length 4 indicating the free adjacent tile or not.
+     */
     public  boolean[] swapTile(int columnTile, int rowTile){
         boolean toRight = false;
         boolean toLeft = false;
         boolean up = false;
         boolean down = false;
-       // && !gridTiles[columnTile][rowTile].getActive()
         if(!gridTiles[columnTile][rowTile].getTileStatus() ) {
             toRight = this.checkAdjacent(rowTile, columnTile, rowTile,columnTile+1);
             toLeft = this.checkAdjacent(rowTile, columnTile, rowTile, columnTile-1);
             up = this.checkAdjacent(rowTile, columnTile, rowTile-1, columnTile);
             down = this.checkAdjacent(rowTile, columnTile, rowTile+1,columnTile);
-            System.out.println("to Right "+ toRight);
-            System.out.println("to Left"+ toLeft);
-            System.out.println("Up "+ up);
-            System.out.println("down"+ down);
         }
         return saveDirections(toRight,toLeft,up,down);
     }
 
+    /**
+     * 
+     * @param toRight
+     * @param toLeft
+     * @param up
+     * @param down
+     * @return
+     */
     public boolean[] saveDirections(boolean toRight, boolean toLeft, boolean up, boolean down){
         boolean[] results = new boolean[4];
         results[0]=toRight;
