@@ -27,6 +27,10 @@ public class NumSlider {
             toLeft = this.checkAdjacent(rowTile, columnTile, rowTile, columnTile-1);
             up = this.checkAdjacent(rowTile, columnTile, rowTile-1, columnTile);
             down = this.checkAdjacent(rowTile, columnTile, rowTile+1,columnTile);
+            System.out.println("to Right "+ toRight);
+            System.out.println("to Left"+ toLeft);
+            System.out.println("Up "+ up);
+            System.out.println("down"+ down);
         }
         return saveDirections(toRight,toLeft,up,down);
     }
@@ -59,6 +63,7 @@ public class NumSlider {
                 this.gridTiles[nextRow][nextCol].setTileValue(this.gridTiles[presentRow][presentColumn].getTileValue());
                 this.gridTiles[presentRow][presentColumn].setTileStatus(true);
                 this.gridTiles[presentRow][presentColumn].setTileValue(0);
+
                 return true;
             }
         }
